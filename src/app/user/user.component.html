@@ -1,0 +1,57 @@
+<div class="container">
+  <ngx-spinner></ngx-spinner>
+  <div class="row">
+    <div [innerHTML]="message1"></div>
+    <div [innerHTML]="message2"></div>
+    <div [innerHTML]="message3"></div>
+  </div>
+  <form #studentForm="ngForm">
+    <div class="form-group">
+      <div class="mb-3 mt-3">
+        <label>Name :</label>
+        <input type="text" pattern="[a-zA-Z]+$" class="form-control" #stName="ngModel" name="name"
+               placeholder="Enter Name"
+               [(ngModel)]="student.name" required="required" minlength="3" maxlength="100">
+        <span style="color: red;font-weight: bold;font-size: 13px" *ngIf="stName.invalid && stName.touched">Please Enter Valid Name</span>
+      </div>
+      <div class="mb-3 mt-3">
+        <label>E-mail :</label>
+        <input type="email" class="form-control" pattern="[a-zA-Z0-9@.]+$" #stEmail="ngModel" name="email"
+               placeholder="Enter Email"
+               [(ngModel)]="student.email" required="required" minlength="3" maxlength="100">
+        <span style="color: red;font-weight: bold;font-size: 13px" *ngIf="stEmail.invalid && stEmail.touched">Please Enter Valid Email</span>
+      </div>
+      <div class="mb-3 mt-3">
+        <label>Contact :</label>
+        <input type="text" class="form-control" pattern="[0-9]+$" #stContact="ngModel" name="contact"
+               placeholder="Enter Contact"
+               [(ngModel)]="student.contact" required="required" minlength="3" maxlength="10">
+        <span style="color: red;font-weight: bold;font-size: 13px" *ngIf="stContact.invalid && stContact.touched">Please Enter Valid Contact</span>
+      </div>
+    </div>
+    <br>
+    <button class="btn btn-primary" (click)="saveCustomer()">Save</button>
+  </form>
+  <br>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">E-mail</th>
+      <th scope="col">Contact No</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of studentList">
+      <th scope="row">{{data.name}}</th>
+      <td>{{data.email}}</td>
+      <td>{{data.contact}}</td>
+      <td>
+        <button class="btn btn-danger" (click)="deleteCustomer(data.id)">Delete</button>
+        <button class="btn btn-success mx-2" routerLink="edit/{{data.id}}">Edit</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
